@@ -19,6 +19,9 @@ crosswords
 
 **crosswords** is a terminal tool to help you solving crosswords.
 
+This is a full rewrite of a script I wrote back in 2011 to help my girlfriend
+solve crosswords.
+
 Install
 -------
 
@@ -38,6 +41,8 @@ Run
 .. code-block::
 
     crosswords <word>
+
+Your word should have ``?``s for each letter you don't know, e.g.: `bon??ur`.
 
 Tests
 -----
