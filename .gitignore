@@ -1,4 +1,9 @@
 *~
 .*.sw*
+*.pyc
+__pycache__
 .DS_Store
+.coverage
+.tox
 mots_francais.txt
+/venv
