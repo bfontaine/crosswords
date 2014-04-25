@@ -1,125 +1,49 @@
-#! /usr/bin/python3.2
-# -*- coding: latin-1 -*-
-
-# pyMots v0.2
-#
-# par Baptiste Fontaine
-# http://bfontaine.net
-#
-# Licence GPL v3
-#
-# utilisation:
-#       ./pymots.py mot[ mot ...]
-#
-# fichier associe:
-#       mots_francais.txt
-#
+# -*- coding: UTF-8 -*-
 
 import re
+from unidecode import unidecode
 
-WORDS_FILENAME = "mots_francais.txt"
-
-def load_file():
+def compile_pattern(word):
     """
-    Retourne la liste des mots du fichier
-    WORDS_FILENAME.
+    take a word pattern and return a Python regexp. A word pattern is a word
+    with unknown letters replaced by a '?', e.g. 'di?ti??nar?'.
     """
-    try:
-        f = open(WORDS_FILENAME, "r")
-        ct = f.read()
-        f.close()
-        liste = ct.split("\n")
-        return [li.lower() for li in liste if (li)]
-    
-    except IOError:
-        return False
+
+    # use an unicode string for `unidecode`
+    if type(word) == str:
+        word = word.decode()
+
+    # remove trailing spaces
+    word = word.strip()
+    # remove accents, hyphens & other special chars
+    word = re.sub(r'["\'-;.]+', '', unidecode(word))
+    # only lowercase
+    word = word.lower()
+
+    # make it a regexp pattern
+    return re.compile(r'^%s$' % re.sub(r'\?', '[a-z]', word))
 
 
-def filter_list(liste, hyphen=True):
+def get_matches(pattern, filename, max_count=8):
     """
-    Filtre (retourne une nouvelle liste) une liste de mots (enleve
-    les accents, les tirets, les majuscules)
+    take a word pattern or a Python regexp and a filename for the dictionnary,
+    and return a list of all matching words.
+
+    The dictionnary file should contain only one word per line, lowercase with
+    no accents nor hyphens.
     """
-    # no_accents = str.maketrans("âäéèêë€îïôöðøûüùŷÿ$ŀ",
-    #                            "aaeeeeeiiooo ouuuyysl")
-    
-    new_liste = []
-    for li in liste:
-        # tmp = li.lower().translate(no_accents)
-        tmp = li.lower().replace("æ", "ae")
-        tmp = tmp.replace("œ", "oe")
-        if (hyphen):
-            tmp = tmp.replace("-", "")
-        if (tmp):
-            new_liste.append(tmp)
-    
-    return new_liste
+    if str(pattern) == pattern:
+        pattern = compile_pattern(pattern)
 
-def match_word(word, liste):
-    """
-    Retourne tous les mots de la liste qui correspondent au
-    mot partiel entre. Ex:
-        match_word("_on__u_", ["bonjour", "bonsoir"]) -> ["bonjour"]
-    """
-    
-    word = filter_list([word], hyphen=False)
-    if (word):
-        pattern = word[0]
-    else:
-        return False
-    
-    pattern = "#" + re.sub("[^a-z]", "[a-z]", pattern) + "#"
-    
-    search = "#".join(filter_list(liste))
-    
-    matching = re.findall(pattern, search)
-    
-    if (matching):
-        return matching
-    return False
+    results = []
 
+    with open(filename, 'r') as f:
+        for word in f:
+            if max_count <= 0:
+                break
+            w = word.strip()
+            if pattern.match(w):
+                results.append(w)
+                max_count -= 1
 
-if (__name__ == "__main__"):
-    
-    from sys import argv
-    
-    if (not len(argv) > 1):
-        exit()
-    
-    mots = argv[1:]
-    
-    if (len(mots) == 1):
-        
-        print("Chargement du dictionnaire...")
-        liste = match_word(mots[0], load_file())
-        
-        if (liste):
-            print("%d possibilite(s): " % len(liste))
-            
-            for e in liste:
-                print ("-> %s" % e[1:-1])
-        
-        else:
-            print("aucune possibilite.")
-
-    else:
-        print("Chargement du dictionnaire...")
-        liste_fic = load_file()
-        
-        for i in range(len(mots)):
-            
-            mot = mots[i]
-            
-            print("Mot n°%d :\n" % i+1)
-            
-            liste = match_word(mots[0], liste_fic)
-        
-            if (liste):
-                print("%d possibilite(s): " % len(liste))
-                
-                for e in liste:
-                    print ("-> %s" % e[1:-1])
-            
-            else:
-                print("aucune possibilite.")
-
+    return results
