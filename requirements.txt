@@ -1,2 +1,5 @@
 Unidecode==0.04.14
 pep8==1.5.6
+py==1.4.20
+tox==1.7.1
+virtualenv==1.11.4
