@@ -3,6 +3,7 @@
 import re
 from unidecode import unidecode
 
+
 def compile_pattern(word):
     """
     take a word pattern and return a Python regexp. A word pattern is a word

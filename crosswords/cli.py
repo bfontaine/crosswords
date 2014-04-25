@@ -5,9 +5,11 @@ import sys
 from crosswords import dictionnaries
 from crosswords.words import get_matches
 
+
 def print_help_and_exit(exe='crosswords'):
     print("Usage:\n\t%s <word>" % exe)
     sys.exit(1)
+
 
 def run(word=None):
     if len(sys.argv) < 2:
