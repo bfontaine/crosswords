@@ -21,7 +21,10 @@ def sanitize_word(word):
     """
     # use an unicode string for `unidecode`
     if type(word) == str:
-        word = word.decode()
+        try:
+            word = word.decode()
+        except AttributeError:
+            pass # Python3
 
     # remove trailing spaces
     word = word.strip()
