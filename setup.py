@@ -29,6 +29,7 @@ setup(
     long_description=open('README.rst', 'r').read(),
     install_requires=[
         'Unidecode==0.04.14',
+        'requests==2.2.1',
     ],
     classifiers=[
         'Environment :: Console',
