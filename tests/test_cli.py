@@ -12,19 +12,19 @@ from crosswords import cli
 
 class TestWords(unittest.TestCase):
 
-    def setup(self):
+    def setUp(self):
         self._argv = sys.argv
         self._exit = sys.exit
         sys.exit = lambda s: None
 
-    def teardown(self):
+    def tearDown(self):
         sys.argv = self._argv
         sys.exit = self._exit
 
 
-    # print_help_and_exit: TODO
-    # find_word: TODO
-    # print_languages_and_exit: TODO
+    # print_help_and_exit
+    # find_word
+    # print_languages_and_exit
 
     # extract_opts
 
@@ -53,4 +53,4 @@ class TestWords(unittest.TestCase):
         self.assertSequenceEqual(['a'], opts.keys())
         self.assertEqual(v, opts['a'])
 
-    # run: TODO 
+    # run
