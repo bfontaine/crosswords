@@ -42,7 +42,7 @@ Usage
     crosswords [-l <language>] <word>
 
 Your word should have ``?`` characters for each letter you don't know, e.g.:
-``bon??ur``.
+``bon??ur``. By default, the tool returns up to 8 possible words.
 
 Some words have special meaning:
 
@@ -54,6 +54,17 @@ Some words have special meaning:
 A language dictionnary is a file with one word per line, without accents,
 hyphens or special chars. Local dictionnaries are stored in
 ``~/.crosswords/dicts``. Remote ones are on my website.
+
+Languages
+~~~~~~~~~
+
+Here are the currently available languages. You can install any of them with
+``crosswords install <language>``.
+
+- English (``english``):  `70k words`_
+- French (``french``): 300k words
+
+.. _69k words : http://www-personal.umich.edu/~jlawler/wordlist.html
 
 Tests
 -----
