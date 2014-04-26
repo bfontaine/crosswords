@@ -7,8 +7,9 @@ if platform.python_version() < '2.7':
 else:
     import unittest
 
-import shutil
+import os
 import os.path
+import shutil
 from tempfile import mkdtemp
 
 import crosswords.dictionnaries as dicts
@@ -54,6 +55,15 @@ class TestDicts(unittest.TestCase):
         self.assertTrue(os.path.exists(dicts.DICTS_PATH))
         dicts.init_storage()
         self.assertTrue(os.path.exists(dicts.DICTS_PATH))
+
+    def test_init_storage_exists_as_file(self):
+        os.makedirs(dicts.DICTS_PATH)
+        dicts.DICTS_PATH += '/foobar'
+
+        with open(dicts.DICTS_PATH, 'w') as f:
+            f.write('nothing')
+
+        self.assertRaises(OSError, dicts.init_storage)
 
     # local_list
 
