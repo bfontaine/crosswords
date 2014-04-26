@@ -38,6 +38,10 @@ class TestDicts(unittest.TestCase):
     def test_sanitize_spaces(self):
         self.assertEqual('foobar', dicts.sanitize_word(' foo ba r  '))
 
+    def test_sanitize_parentheses(self):
+        self.assertEqual('foobar', dicts.sanitize_word('(a)foobar'))
+        self.assertEqual('foobar', dicts.sanitize_word('foobar (one)'))
+
     # init_storage
 
     def test_init_storage_doesnt_exist(self):
