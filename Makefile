@@ -19,6 +19,9 @@ endif
 
 deps:
 	pip install -qr requirements.txt
+ifeq ($(PY_VERSION_SHORT),2.6)
+	pip install -qr py26-requirements.txt
+endif
 ifneq ($(PY_VERSION_SHORT),3.3)
 ifneq ($(PY_VERSION_SHORT),3.4)
 	pip install -q wsgiref==0.1.2
