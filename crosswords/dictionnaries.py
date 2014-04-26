@@ -24,7 +24,7 @@ def sanitize_word(word):
         try:
             word = word.decode()
         except AttributeError:
-            pass # Python3
+            pass  # Python3
 
     # remove trailing spaces
     word = word.strip()
@@ -129,6 +129,7 @@ def download(name, verbose=False):
 def filepath(language):
     """return a file path for a given language"""
     return os.path.join(DICTS_PATH, '%s.txt' % language)
+
 
 def exists(language):
     """test if a dictionnary for the given language exists locally"""
