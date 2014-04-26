@@ -6,5 +6,5 @@ __pycache__
 .coverage
 .tox
 *.egg-info
-mots_francais.txt
 /venv
+/htmlcov
