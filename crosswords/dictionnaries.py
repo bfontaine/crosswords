@@ -12,7 +12,7 @@ import requests
 DICTS_URL = 'http://bfontaine.net/crosswords/dicts'
 DICTS_PATH = os.path.join(os.path.expanduser('~'), '.crosswords', 'dicts')
 
-DEFAULT = 'french'
+DEFAULT = 'english'
 
 
 def sanitize_word(word):

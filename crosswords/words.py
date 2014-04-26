@@ -24,7 +24,7 @@ def get_matches(pattern, language, max_count=8):
     results = []
 
     if not dicts.exists(language):
-        print("The language '%s' is not available locally.")
+        print("The language '%s' is not available locally." % language)
         return []
 
     with open(dicts.filepath(language), 'r') as f:
