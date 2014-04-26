@@ -57,7 +57,7 @@ def extract_opts(**opts):
     return opts
 
 
-def run(word=None):
+def run():
     opts = extract_opts(l=dicts.DEFAULT)
 
     argc = len(sys.argv)
@@ -97,4 +97,4 @@ def run(word=None):
         print("Crosswords v%s" % crosswords.__version__)
 
     else:
-        matches = find_word(word, opts['l'])
+        find_word(word, opts['l'])
