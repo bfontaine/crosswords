@@ -64,7 +64,7 @@ Here are the currently available languages. You can install any of them with
 - English (``english``):  `70k words`_
 - French (``french``): 300k words
 
-.. _69k words : http://www-personal.umich.edu/~jlawler/wordlist.html
+.. _70k words : http://www-personal.umich.edu/~jlawler/wordlist.html
 
 Tests
 -----
