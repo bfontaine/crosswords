@@ -1,4 +1,5 @@
 v0.3.0, 2014-04-?? -- Initial release of the new utility
 
 This is a full rewrite of the old script, which was written back in 2011. It
-has comments in French only and inefficient code.
+has comments in French only and inefficient code, plus no tests and only one
+dictionnary.
