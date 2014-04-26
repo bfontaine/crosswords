@@ -29,12 +29,6 @@ class TestDicts(unittest.TestCase):
     def test_sanitize_empty_word(self):
         self.assertEqual('', dicts.sanitize_word(''))
 
-    def test_sanitize_unicode(self):
-        res = dicts.sanitize_word(u'foö' if platform.python_version() < '3.0' \
-                                         else 'foö')
-
-        self.assertEqual('foo', res)
-
     def test_sanitize_ascii(self):
         self.assertEqual('foo', dicts.sanitize_word('foo'))
 
