@@ -11,8 +11,22 @@ import os
 import os.path
 import shutil
 from tempfile import mkdtemp
+from httmock import all_requests, HTTMock
 
 import crosswords.dictionnaries as dicts
+
+@all_requests
+def server_mock(url, req):
+    url = url.geturl()
+    if url.endswith('/dicts'):
+        return "foo:42\nbar:36\n"
+
+    if url.endswith('.txt'):
+        name = url.split('/')[-1].replace('.txt', '')
+        return "%s\nabc\ndef\n" % name
+
+    return {'status_code': 404, 'content': '404.'}
+
 
 class TestDicts(unittest.TestCase):
 
@@ -90,8 +104,26 @@ class TestDicts(unittest.TestCase):
         self.assertEqual('foo', lst[0])
 
     # remote_list
+
+    def test_remote_list_no_timestamp(self):
+        with HTTMock(server_mock):
+            lst = dicts.remote_list(timestamps=False)
+            self.assertSequenceEqual(['foo', 'bar'], lst)
+
+    def test_remote_list_timestamps(self):
+        with HTTMock(server_mock):
+            lst = dicts.remote_list()
+            self.assertSequenceEqual([('foo', 42), ('bar', 36)], lst)
+
     # update
     # download
+
+    def test_download(self):
+        with HTTMock(server_mock):
+            self.assertEqual(3, dicts.download('foo'))
+
+        w = open(os.path.join(dicts.DICTS_PATH, 'foo.txt'), 'r').read()
+        self.assertSequenceEqual(['foo', 'abc', 'def', ''], w.split('\n'))
 
     # exists
 
