@@ -38,6 +38,9 @@ covercheck:
 	coverage run --source=crosswords tests/test.py
 	coverage $(COVERAGE_REPORT)
 
+htmlcovercheck:
+	make COVERAGE_REPORT=html covercheck
+
 clean:
 	rm -f *~ */*~
 	rm -f $(COVERFILE)
