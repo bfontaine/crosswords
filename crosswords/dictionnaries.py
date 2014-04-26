@@ -26,7 +26,7 @@ def sanitize_word(word):
     # remove trailing spaces
     word = word.strip()
     # remove accents, hyphens & other special chars
-    word = re.sub(r'["\'-;.]+', '', unidecode(word))
+    word = re.sub(r'[ "\'-;.]+', '', unidecode(word))
     # only lowercase
     return word.lower()
 
