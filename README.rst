@@ -42,7 +42,8 @@ Run
 
     crosswords <word>
 
-Your word should have ``?``s for each letter you don't know, e.g.: `bon??ur`.
+Your word should have ``?`` characters for each letter you don't know, e.g.:
+``bon??ur``.
 
 Tests
 -----
