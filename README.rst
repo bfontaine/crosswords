@@ -19,8 +19,7 @@ crosswords
 
 **crosswords** is a terminal tool to help you solving crosswords.
 
-This is a full rewrite of a script I wrote back in 2011 to help my girlfriend
-solve crosswords.
+This is a full rewrite of a script I wrote back in 2011.
 
 Install
 -------
@@ -35,15 +34,26 @@ To upgrade a previous installation, use:
 
     pip install -U crosswords
 
-Run
----
+Usage
+-----
 
 .. code-block::
 
-    crosswords <word>
+    crosswords [-l <language>] <word>
 
 Your word should have ``?`` characters for each letter you don't know, e.g.:
 ``bon??ur``.
+
+Some words have special meaning:
+
+- ``list``: list local languages
+- ``remote_list``: list remote languages
+- ``install``: install a language
+- ``update``: update local languages
+
+A language dictionnary is a file with one word per line, without accents,
+hyphens or special chars. Local dictionnaries are stored in
+``~/.crosswords/dicts``. Remote ones are on my website.
 
 Tests
 -----
