@@ -5,6 +5,8 @@ import os
 import os.path
 import errno
 from glob import glob
+from unidecode import unidecode
+import re
 import requests
 
 DICTS_URL = 'http://bfontaine.net/crosswords/dicts'
@@ -121,6 +123,10 @@ def download(name, verbose=False):
     return wcount
 
 
+def filepath(language):
+    """return a file path for a given language"""
+    return os.path.join(DICTS_PATH, '%s.txt' % language)
+
 def exists(language):
     """test if a dictionnary for the given language exists locally"""
-    return os.path.exists(os.path.join(DICTS_PATH, '%s.txt' % language))
+    return os.path.exists(filepath(language))

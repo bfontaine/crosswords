@@ -2,6 +2,7 @@
 from __future__ import print_function
 
 import sys
+import crosswords
 from crosswords.words import get_matches
 import crosswords.dictionnaries as dicts
 
@@ -39,13 +40,16 @@ def print_languages_and_exit(lst, status=1, header=True):
 
 
 def extract_opts(**opts):
+    """
+    Small utility to extract a set of one-char options from sys.argv.
+    """
     values = {}
-    for opt, init in opts.keys():
+    for opt, init in opts.items():
         try:
             idx = sys.argv.index('-%s' % opt)
         except ValueError:
             continue
-        if idx < len(sys.argv):
+        if idx+1 < len(sys.argv):
             opts[opt] = sys.argv.pop(idx+1)
 
         sys.argv.pop(idx)
@@ -88,6 +92,9 @@ def run(word=None):
         print_languages_and_exit(dicts.remote_list(timestamps=False),
                                  status=0, header=False)
         print("Use 'install <language>' to download and install a language.")
+
+    elif word == '--version':
+        print("Crosswords v%s" % crosswords.__version__)
 
     else:
         matches = find_word(word, opts['l'])

@@ -1,7 +1,6 @@
 # -*- coding: UTF-8 -*-
 
 import re
-from unidecode import unidecode
 import crosswords.dictionnaries as dicts
 
 
@@ -28,7 +27,7 @@ def get_matches(pattern, language, max_count=8):
         print("The language '%s' is not available locally.")
         return []
 
-    with open(filename, 'r') as f:
+    with open(dicts.filepath(language), 'r') as f:
         for word in f:
             if max_count <= 0:
                 break
