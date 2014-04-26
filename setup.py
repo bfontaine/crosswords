@@ -25,7 +25,7 @@ setup(
     packages=['crosswords'],
     url='https://github.com/bfontaine/crosswords',
     license=open('LICENSE', 'r').read(),
-    description='2048 in your terminal',
+    description='Crosswords help in your terminal',
     long_description=open('README.rst', 'r').read(),
     install_requires=[
         'Unidecode==0.04.14',
