@@ -30,16 +30,19 @@ class TestDicts(unittest.TestCase):
         self.assertEqual('', dicts.sanitize_word(''))
 
     def test_sanitize_unicode(self):
-        self.assertEqual(u'foo', dicts.sanitize_word(u'foö'))
+        res = dicts.sanitize_word(u'foö' if platform.python_version() < '3.0' \
+                                         else 'foö')
+
+        self.assertEqual('foo', res)
 
     def test_sanitize_ascii(self):
-        self.assertEqual(u'foo', dicts.sanitize_word('foo'))
+        self.assertEqual('foo', dicts.sanitize_word('foo'))
 
     def test_sanitize_case(self):
-        self.assertEqual(u'fooo', dicts.sanitize_word('FoOO'))
+        self.assertEqual('fooo', dicts.sanitize_word('FoOO'))
 
     def test_sanitize_spaces(self):
-        self.assertEqual(u'foobar', dicts.sanitize_word(' foo ba r  '))
+        self.assertEqual('foobar', dicts.sanitize_word(' foo ba r  '))
 
     # init_storage
 
