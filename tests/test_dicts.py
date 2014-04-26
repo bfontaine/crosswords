@@ -19,7 +19,7 @@ import crosswords.dictionnaries as dicts
 def server_mock(url, req):
     url = url.geturl()
     if url.endswith('/dicts'):
-        return "foo:42\nbar:36\n"
+        return {'status_code': 200, 'content': b"foo:42\nbar:36\n"}
 
     if url.endswith('.txt'):
         name = url.split('/')[-1].replace('.txt', '')
