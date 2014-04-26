@@ -2,6 +2,7 @@
 
 import re
 from unidecode import unidecode
+import crosswords.dictionnaries as dicts
 
 
 def compile_pattern(word):
@@ -9,34 +10,23 @@ def compile_pattern(word):
     take a word pattern and return a Python regexp. A word pattern is a word
     with unknown letters replaced by a '?', e.g. 'di?ti??nar?'.
     """
-
-    # use an unicode string for `unidecode`
-    if type(word) == str:
-        word = word.decode()
-
-    # remove trailing spaces
-    word = word.strip()
-    # remove accents, hyphens & other special chars
-    word = re.sub(r'["\'-;.]+', '', unidecode(word))
-    # only lowercase
-    word = word.lower()
-
-    # make it a regexp pattern
-    return re.compile(r'^%s$' % re.sub(r'\?', '[a-z]', word))
+    return re.compile(r'^%s$' % re.sub(r'\?', '[a-z]',
+                                       dicts.sanitize_word(word)))
 
 
-def get_matches(pattern, filename, max_count=8):
+def get_matches(pattern, language, max_count=8):
     """
-    take a word pattern or a Python regexp and a filename for the dictionnary,
-    and return a list of all matching words.
-
-    The dictionnary file should contain only one word per line, lowercase with
-    no accents nor hyphens.
+    take a word pattern or a Python regexp and a language name, and return a
+    list of all matching words.
     """
     if str(pattern) == pattern:
         pattern = compile_pattern(pattern)
 
     results = []
+
+    if not dicts.exists(language):
+        print("The language '%s' is not available locally.")
+        return []
 
     with open(filename, 'r') as f:
         for word in f:
