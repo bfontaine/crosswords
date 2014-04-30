@@ -22,7 +22,7 @@ class TestWords(unittest.TestCase):
         dicts.DICTS_PATH = self.path + '/xde$a4l9'
         dicts.init_storage()
         with open(dicts.filepath('foo'), 'w') as f:
-            f.write("abc\ndef\nghi")
+            f.write("abc\ndef\nghi\nwxxx\nwxxx")
 
     def tearDown(self):
         shutil.rmtree(self.path, ignore_errors=True)
@@ -75,3 +75,6 @@ class TestWords(unittest.TestCase):
     def test_get_matches(self):
         self.assertSequenceEqual(['abc', 'def', 'ghi'],
                                  words.get_matches('???', 'foo'))
+
+    def test_get_matches_no_duplicates(self):
+        self.assertSequenceEqual(['wxxx'], words.get_matches('wxx?', 'foo'))

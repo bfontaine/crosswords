@@ -1,3 +1,7 @@
+v0.3.2, 2014-04-?? (in development) -- More polishing
+
+- words are now de-duplicated
+
 v0.3.1, 2014-04-26 -- Minor improvements
 
 - package description fixed

@@ -32,7 +32,7 @@ def get_matches(pattern, language, max_count=8):
             if max_count <= 0:
                 break
             w = word.strip()
-            if pattern.match(w):
+            if pattern.match(w) and w not in results:
                 results.append(w)
                 max_count -= 1
 
