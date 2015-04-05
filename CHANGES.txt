@@ -1,6 +1,7 @@
-v0.3.2, 2014-04-?? (in development) -- More polishing
+v0.3.2, 2015-04-05 -- More polishing
 
 - words are now de-duplicated
+- hard dependency versions relaxed
 
 v0.3.1, 2014-04-26 -- Minor improvements
 
