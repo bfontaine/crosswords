@@ -1,8 +1,5 @@
 # -*- coding: UTF-8 -*-
 
-from os.path import dirname
-import sys
-
 import setuptools
 from distutils.core import setup
 
@@ -28,8 +25,8 @@ setup(
     description='Crosswords help in your terminal',
     long_description=open('README.rst', 'r').read(),
     install_requires=[
-        'Unidecode==0.04.14',
-        'requests==2.2.1',
+        'Unidecode>=0.04.14',
+        'requests>=2.2.1',
     ],
     classifiers=[
         'Environment :: Console',
