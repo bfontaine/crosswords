@@ -2,6 +2,10 @@
 #
 SRC=crosswords
 
+VENV=./venv
+BINPREFIX=$(VENV)/bin/
+PIP=$(BINPREFIX)pip
+
 COVERFILE:=.coverage
 COVERAGE_REPORT:=report -m
 
@@ -17,36 +21,39 @@ endif
 .DEFAULT: check-versions
 .PHONY: check check-versions stylecheck covercheck
 
-deps:
-	pip install -qr requirements.txt
+deps: $(VENV)
+	$(PIP) install -r requirements.txt
 ifeq ($(PY_VERSION_SHORT),2.6)
-	pip install -qr py26-requirements.txt
+	$(PIP) install -r py26-requirements.txt
 endif
 ifneq ($(PY_VERSION_SHORT),3.3)
 ifneq ($(PY_VERSION_SHORT),3.4)
-	pip install -q wsgiref==0.1.2
+	$(PIP) install -q wsgiref==0.1.2
 endif
 endif
+
+venv:
+	virtualenv $@
 
 check:
-	python tests/test.py
+	$(BINPREFIX)python tests/test.py
 
 check-versions:
-	tox
+	$(BINPREFIX)tox
 
 stylecheck:
-	pep8 $(SRC)
+	$(BINPREFIX)pep8 $(SRC)
 
 covercheck:
-	coverage run --source=crosswords tests/test.py
-	coverage $(COVERAGE_REPORT)
+	$(BINPREFIX)coverage run --source=crosswords tests/test.py
+	$(BINPREFIX)coverage $(COVERAGE_REPORT)
 
 htmlcovercheck:
 	make COVERAGE_REPORT=html covercheck
 
 clean:
-	rm -f *~ */*~
-	rm -f $(COVERFILE)
+	$(RM) *~ */*~
+	$(RM) $(COVERFILE)
 
 publish: check-versions
-	python setup.py sdist upload
+	$(BINPREFIX)python setup.py sdist upload

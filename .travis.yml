@@ -4,11 +4,12 @@ python:
 - '2.7'
 - '3.2'
 - '3.3'
+- '3.4'
 install:
-- make deps
+- make BINPREFIX= deps
 - pip install coveralls
 script:
-- make covercheck
+- make BINPREFIX= covercheck
 after_success: coveralls
 notifications:
   email: false
