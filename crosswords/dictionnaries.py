@@ -4,9 +4,11 @@ from __future__ import print_function
 import os
 import os.path
 import errno
-from glob import glob
-from unidecode import unidecode
 import re
+from sys import exit
+from glob import glob
+
+from unidecode import unidecode
 import requests
 
 DICTS_URL = 'http://bfontaine.net/crosswords/dicts'
@@ -66,13 +68,25 @@ def local_list(timestamps=True):
     return lst
 
 
+def get_remote_file(url):
+    """
+    Wrapper around ``request.get`` which nicely handles connection errors
+    """
+    try:
+        return requests.get(url)
+    except requests.exceptions.ConnectionError as e:
+        print("Connection error!")
+        print(e.message.reason)
+        exit(1)
+
+
 def remote_list(timestamps=True):
     """
     Return a list of the remotely available dictionnaries. Each element is a
     tuple of the dictionnary name and its last modification date as a
     timestamp.
     """
-    r = requests.get(DICTS_URL)
+    r = get_remote_file(DICTS_URL)
     lst = []
     for f in r.text.split('\n'):
         if not f:
@@ -114,7 +128,7 @@ def download(name, verbose=False):
 
     if verbose:
         print("Downloading '%s'..." % name)
-    r = requests.get('%s/%s.txt' % (DICTS_URL, name))
+    r = get_remote_file('%s/%s.txt' % (DICTS_URL, name))
 
     if r.status_code != 200:
         return -1
